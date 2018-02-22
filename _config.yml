@@ -1,0 +1,27 @@
+# Site settings
+title:          "Compilation"
+description:    "Small thigs which matter."
+baseurl:        ""
+url:            "https://swarajk7.github.io"
+
+# Author
+author:
+  name:         Swaraj Khadanga
+  url:          https://swarajk7.github.io
+  email:        swarajk7@gmail.com
+
+# Build settings
+markdown:       kramdown
+
+# Assets
+sass:
+  sass_dir:     _sass
+  style:        compressed
+
+# Gems
+plugins:
+  - jekyll-paginate
+
+# Permalinks
+permalink:      /:year-:month-:day/:title
+paginate:       5

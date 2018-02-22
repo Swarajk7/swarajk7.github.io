@@ -1,2 +1,1 @@
-# swarajk7.github.io
-Blog Post
+Code for Blog!! Voila!!
