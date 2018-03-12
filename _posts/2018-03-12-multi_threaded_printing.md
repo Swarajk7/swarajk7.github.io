@@ -9,7 +9,7 @@ author: "Swaraj"
 [CareerCup Link](https://www.careercup.com/question?id=5082791237648384)
 
 In this blog, I will introduce to thread, mutex and condition_variable headers in C++ 11 by walking you through a code. 
-Some familiarity with threads, mutex is assumed to understand the solution. Objective is to understand how to use these basic building blocks to design a solution. Please understand how cv.notify_all(), cv.wait(lock, predicate) works before proceeding.
+Some familiarity with threads, mutex is assumed to understand the solution. Objective is to understand how to use these basic building blocks to design a solution. Take a loo at how condition variables and how cv.notify_all(), cv.wait(lock, predicate) works before proceeding.
 
 <b> Let's understand the Headers</b>
         
@@ -25,9 +25,9 @@ Some familiarity with threads, mutex is assumed to understand the solution. Obje
         
         #include<condition_variable>
         /* this is a nice construct that we can use to signal other threads 
-         * based on a given condtion.
+         * based on a given condition.
          * it removes the need of polling based check using while loop.
-         * ref: https://goo.gl/W3VWYQ - click link below
+         * go through link below to understand conditional variable
          * as we see , It reduces the CPU usage and hence a better alternative. */
 
 [Condition-Variable](https://goo.gl/W3VWYQ) 
@@ -38,7 +38,17 @@ Some familiarity with threads, mutex is assumed to understand the solution. Obje
 * we have to order these events. 0 - odd - 0 - even - 0 - odd - etc
 * so we need a signal mechansim to signal between threads. 
 * So I will use a mutex and a condition variable.
-* I will use 2 variables zero (which singals should I print zero now) <br> and val which signals what is the next value to print.
+* I will use 2 variables : zero (which singals should I print zero now) <br> and val which signals what is the next value to print.
+
+
+Logic is at one point of time, only one of the three conditions will be satisfied.
+
+if zero is true => it will trigger zero thread. <br>
+zero is false and val is odd => it will trigger odd thread. <br>
+zero is false and val is even => it will trigger even thread. <br>
+
+Each thread will print something and change state of zero and val to trigger other threads. <br>
+
 
 Rest of the code. Please follow the comments.
 
@@ -152,9 +162,3 @@ Rest of the code. Please follow the comments.
             t2.join();
             t3.join();
         }
-
-<b>Analysis</b><br>
-Logic is at one point of time, only one of the three conditions will be satisfied.
-
-zero is true => it will trigger zero thread. <br>
-zero is false => it will check for val if it is even or odd, based on that only even or odd thread will be triggered.
